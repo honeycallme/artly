@@ -1,9 +1,9 @@
 <script lang="ts">
    import Gallery from "$lib/components/sections/gallery.svelte";
+   import { onMount } from "svelte";
 
    export let data;
    let loading = data.options.loading;
-
 </script>
 
 <div>

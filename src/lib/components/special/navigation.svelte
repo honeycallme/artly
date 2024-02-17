@@ -90,7 +90,7 @@
    bind:open={loginModal}
    autoclose={false}
    outsideclose
-   classBackdrop="bg-red-400"
+   classBackdrop="bg-white"
 >
    <form
       method="post"
