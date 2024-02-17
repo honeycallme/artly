@@ -8,7 +8,7 @@
 
     export let settings : any;
     export let collection : string;
-    export let loading;
+    export let loading : boolean;
     export let limit : number;
  
     async function infiniteHandler({ detail: { loaded } }) {
@@ -47,7 +47,7 @@
  </script>
 
 
-{#if data.posts.length < 1}
+{#if data.posts.length < 1 && !loading}
     <div class="w-full h-full overflow-hidden screen center">
         <span class="text-xl text-center text-gray-600">no {collection} to show.</span>
     </div>
