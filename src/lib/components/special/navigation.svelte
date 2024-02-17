@@ -24,7 +24,7 @@
 
       {#if !user}
          <div class="flex-none">
-            <button class="btn" on:click={() => (loginModal = true)}>
+            <button class="btn btn-secondary" on:click={() => (loginModal = true)}>
                login / register
             </button>
          </div>
@@ -90,7 +90,6 @@
    bind:open={loginModal}
    autoclose={false}
    outsideclose
-   classBackdrop="bg-white"
 >
    <form
       method="post"
@@ -101,7 +100,7 @@
    >
       {#each providers as provider}
          <button
-            class="w-3/4 text-2xl text-center btn"
+            class="w-3/4 text-2xl text-center btn-secondary btn"
             formaction="/login?/{provider.name}"
             disabled={loading}
             type="submit"
