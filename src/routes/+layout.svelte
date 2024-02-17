@@ -6,9 +6,9 @@
    import { blur } from 'svelte/transition';
    import "../app.css";
 
-   onMount(() => {
-      lenis;
-   });
+   // onMount(() => {
+   //    lenis;
+   // });
 
    export let data: any;
 </script>
