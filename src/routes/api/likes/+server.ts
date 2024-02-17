@@ -12,15 +12,13 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     try {
         posts = await locals.pb.collection(options?.collection).getList(options?.page, options?.limit, options?.settings);
 
-        console.log(posts);
-
         let temp : any[] = [];
         posts.items.forEach(element => {
             temp.push(element.expand?.post);
         });
 
         await getUrls(temp, locals.pb);
-        const postsArray = splitArray(temp, 3);
+        const postsArray = splitArray(temp, options?.rows);
 
         return new Response(JSON.stringify(postsArray));
     } catch (e) {

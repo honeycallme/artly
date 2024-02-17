@@ -2,14 +2,7 @@
    import Gallery from "$lib/components/sections/gallery.svelte";
 
    export let data;
-
-   let loading = true;
-   let collection = "likes";
-   let settings = {
-      sort: "-created",
-      expand: 'post',
-      filter: `user.id = '${data.user.id}'`,
-   };
+   let loading = data.options.loading;
 
 </script>
 
@@ -20,5 +13,5 @@
       </div>
    {/if}
 
-   <Gallery {settings} {collection} limit={3} bind:loading />
+   <Gallery {data} bind:loading={loading} />
 </div>

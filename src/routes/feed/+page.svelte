@@ -1,11 +1,9 @@
 <script lang="ts">
    import Gallery from "$lib/components/sections/gallery.svelte";
 
-   let loading = true;
-   let collection = 'posts';
-   let settings = { sort: '@random' };
-
    export let data;
+   let loading = data.options.loading;
+
 </script>
 
 <div>
@@ -16,5 +14,5 @@
       </div>
    {/if}
 
-   <Gallery {settings} {collection} limit={4} bind:loading={loading} />
+   <Gallery {data} bind:loading={loading} />
 </div>

@@ -18,7 +18,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         });
 
         await getUrls(temp, locals.pb);
-        const postsArray = splitArray(temp, 3);
+        const postsArray = splitArray(temp, options?.rows);
 
         return new Response(JSON.stringify(postsArray));
     } catch (e) {
