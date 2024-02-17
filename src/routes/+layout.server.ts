@@ -1,5 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 
+export let ssr = true;
+
 export const load = (async ({ locals, url }) => {
     if (locals.user) {
         let user = locals.user;

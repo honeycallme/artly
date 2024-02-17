@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
    import Navigation from "./../lib/components/special/navigation.svelte";
    import { Toaster } from 'svelte-french-toast';
-   import lenis from '$lib/utils/lenis'
    import { blur } from 'svelte/transition';
    import "../app.css";
 
