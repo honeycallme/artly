@@ -1,0 +1,51 @@
+/* tailwind */
+
+@import url('./styles/fonts.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* custom */
+
+.center {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.screen {
+   width: 100vw;
+   min-height: 100vh;
+   overflow: hidden;
+}
+
+html {
+   overflow-x: hidden;
+   margin: 0;
+   box-sizing: border-box;
+}
+
+
+/* lenis scroll */
+
+html.lenis {
+   height: auto
+}
+
+.lenis.lenis-smooth {
+   scroll-behavior: auto
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+   overscroll-behavior: contain
+}
+
+.lenis.lenis-stopped {
+   overflow: hidden
+}
+
+.lenis.lenis-scrolling iframe {
+   pointer-events: none
+}
