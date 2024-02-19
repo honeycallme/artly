@@ -88,12 +88,13 @@
                   class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content rounded-box w-52 bg-gray-50"
                >
                   <li>
-                     <a class="justify-between">
+                     <a class="justify-between" href="/profile">
                         Profile
                         <span class="badge">Complete</span>
                      </a>
                   </li>
                   <li><a href="/saves">Saves</a></li>
+                  <li><a href="/settings">Settings</a></li>
                   <form action="/login?/logout" method="post">
                      <li><button>Logout</button></li>
                   </form>
