@@ -2,9 +2,11 @@
    import Post from "$lib/components/individuals/post.svelte";
    import InfiniteLoading from "svelte-infinite-loading";
    import { Gallery } from "flowbite-svelte";
+   import { onMount } from "svelte";
 
    export let data: any;
    export let loading: boolean;
+   let size: number;
 
    const options = data.options;
 
@@ -26,7 +28,10 @@
          .then((res) => {
             if (options?.settings.sort !== "@random") options.page++;
 
-            if (res.length >= options.rows && res[0][0]?.id != data.posts[0][0]?.id) {
+            if (
+               res.length >= options.rows &&
+               res[0][0]?.id != data.posts[0][0]?.id
+            ) {
                loaded();
                loading = false;
 
@@ -37,7 +42,20 @@
             }
          });
    }
+
+   onMount(() => {
+      window.scrollTo(0, 0);
+   });
+
+   $: {
+      if (size < 768) {
+         options.rows = 1;
+         options.limit = 5;
+      }
+   }
 </script>
+
+<svelte:window bind:innerWidth={size} />
 
 {#if data.posts.length < 1 && !loading}
    <div class="w-full h-full overflow-hidden screen center">

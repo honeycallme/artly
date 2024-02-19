@@ -9,6 +9,7 @@
 
    let loading: boolean = false;
    let loginModal = false;
+   let size: number;
 
    let paths : string[];
 
@@ -23,6 +24,8 @@
 }
 
 </script>
+
+<svelte:window bind:innerWidth={size} />
 
 <div class="fixed z-50 w-full p-4 rounded-2xl">
    <div
@@ -44,13 +47,16 @@
          </div>
       {:else}
          <div class="flex-none gap-4">
-            <div class="mr-2 form-control">
-               <input
-                  type="text"
-                  placeholder="Search"
-                  class="bg-transparent input input-bordered w-80"
-               />
-            </div>
+
+            {#if size > 768}
+               <div class="mr-2 form-control">
+                  <input
+                     type="text"
+                     placeholder="Search"
+                     class="bg-transparent input input-bordered w-80"
+                  />
+               </div>
+            {/if}
 
             <div class="text-4xl">
                <a href="/upload">

@@ -6,7 +6,7 @@
 </script>
 
 <div class="w-full center">
-   <div class="flex flex-col items-center justify-center p-8 shadow-2xl lg:flex-row rounded-3xl drop-shadow-2xl w-[60%]">
+   <div class="flex flex-col items-center justify-center p-8 shadow-2xl lg:flex-row rounded-3xl drop-shadow-2xl">
       <!-- left -->
       <img src={post.content} alt="post.id" />
     
@@ -46,7 +46,7 @@
 
 <style>
    img {
-      max-width: 50dvh;
+      height: 60dvh;
       border-radius: 5%;
    }
 </style>
