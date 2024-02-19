@@ -8,6 +8,7 @@
       loading = data.options.loading;
    }, 1000);
 
+
 </script>
 
 <div>

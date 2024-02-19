@@ -5,7 +5,7 @@ export const load = (async ({ locals, url }) => {
 
     // post loading
 
-    let post;
+    let post: any;
     const id = url.pathname.split('/').pop();
     const settings = {
         expand: 'creator',
@@ -18,6 +18,27 @@ export const load = (async ({ locals, url }) => {
     } catch (e) {
         console.log('errror : ', e);
         return error(404, 'Unknown post')
+    }
+
+    // saves + likes loading
+
+    let likes;
+    let saves;
+
+    try {
+        likes = await locals.pb.collection('likes').getList(1, 1, {
+            filter: `user.id='${locals.user.id}' && post.id='${post.id}'`,
+        });
+
+        saves = await locals.pb.collection('saves').getList(1, 1, {
+            filter: `user.id='${locals.user.id}' && post.id='${post.id}'`,
+        });
+
+        post.liked = likes.items.length > 0;
+        post.saved = saves.items.length > 0;
+    } catch (e) {
+        console.log('errror : ', e);
+        return error(400, 'Something went wrong');
     }
 
     // posts alique loading

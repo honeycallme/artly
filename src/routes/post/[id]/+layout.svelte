@@ -16,7 +16,7 @@
     <div class="text-xl">
         <p class="text-center text-gray-500">more like this :</p>
 
-        <div class="-mt-[5%]">
+        <div class="">
             <slot />
         </div>
     </div>

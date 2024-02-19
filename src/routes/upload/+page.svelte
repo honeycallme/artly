@@ -3,14 +3,7 @@
    import { MultiSelect } from "flowbite-svelte";
    import toast from 'svelte-french-toast';
    import Upload from "$lib/components/individuals/upload.svelte";
-
-   let tags = [
-      { value: "us", name: "United States" },
-      { value: "ca", name: "Canada" },
-      { value: "fr", name: "France" },
-      { value: "jp", name: "Japan" },
-      { value: "en", name: "England" },
-   ];
+   import { tags } from '$lib/stores/tags';
    
    let selected: string[];
    let file : File;
@@ -56,7 +49,7 @@
 
             <div>
                <label for="tags" class="p-2 text-gray-500">tags (optional) :</label>
-               <MultiSelect items={tags} bind:value={selected} name="tags" />
+               <MultiSelect items={$tags} bind:value={selected} name="tags" />
             </div>
 
             <div>

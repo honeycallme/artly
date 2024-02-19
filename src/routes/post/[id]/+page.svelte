@@ -6,7 +6,6 @@
 
    setTimeout(() => {
       loading = data.options.loading;
-      console.log(loading);
    }, 1000);
 
 </script>

@@ -1,8 +1,9 @@
 <script lang="ts">
    import { enhance } from "$app/forms";
-   import { Modal } from "flowbite-svelte";
+   import { Modal, MultiSelect } from "flowbite-svelte";
    import Icon from "@iconify/svelte";
    import { page } from '$app/stores';
+   import { tags, selected } from '$lib/stores/tags';
 
    export let user: any;
    export let providers: any;
@@ -20,8 +21,8 @@
    }
 
    function capitalizeFirstLetter(word : string) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-}
+      return word.charAt(0).toUpperCase() + word.slice(1);
+   }
 
 </script>
 
@@ -48,13 +49,9 @@
       {:else}
          <div class="flex-none gap-4">
 
-            {#if size > 768}
-               <div class="mr-2 form-control">
-                  <input
-                     type="text"
-                     placeholder="Search"
-                     class="bg-transparent input input-bordered w-80"
-                  />
+            {#if size > 768 && (paths.length > 0 && paths[0] == "feed" || paths[0][0] == '@')}
+               <div class="mr-2 form-control w-80">
+                  <MultiSelect items={$tags} bind:value={$selected} name="tags" />
                </div>
             {/if}
 
