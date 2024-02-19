@@ -9,6 +9,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
     let posts = [];
 
+
     try {
         posts = await locals.pb.collection(options?.collection).getList(options?.page, options?.limit, options?.settings);
 

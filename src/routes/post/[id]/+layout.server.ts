@@ -1,40 +1,47 @@
 import { error, fail, redirect, type RequestHandler } from '@sveltejs/kit';
-import { getAvatar, getUrls, splitArray } from '$lib/utils/utils.js';
+import { getAvatar, getUrl, getUrls, splitArray } from '$lib/utils/utils.js';
 
 export const load = (async ({ locals, url }) => {
 
-    // user loading
+    // post loading
 
-    const username = url.pathname.substring(2);
-    let user;
-
-    try {
-        user = await locals.pb.collection('users').getFirstListItem(`username="${username}"`, {});
-        getAvatar(user, locals.pb);
-    } catch (e) {
-        console.log('errror : ', e);
-        return error(404, 'Unknown user')
+    let post;
+    const id = url.pathname.split('/').pop();
+    const settings = {
+        expand: 'creator',
     }
 
-    // post loading
+    try {
+        post = await locals.pb.collection('posts').getOne(id, settings);
+        getUrl(post, locals.pb);
+        getAvatar(post.expand.creator, locals.pb);
+    } catch (e) {
+        console.log('errror : ', e);
+        return error(404, 'Unknown post')
+    }
+
+    // posts alique loading
 
     const options = {
         loading: true,
         collection: 'posts',
         settings: {
             sort: "-created",
-            filter: `creator.id = '${user.id}'`,
+            filter: post.tags.map((tag: string) => `tags~'${tag}'`).join("||"),
         },
         page: 0,
         limit: 9,
         rows: 3
     }
 
-    if (!options.collection)
+    if (!options.collection || post.tags.length === 0) {
+        options.loading = false;
         return {
+            post: post,
             posts: [],
             options: options
         };
+    }
 
     let posts = [];
     let postsArray = [];
@@ -45,7 +52,7 @@ export const load = (async ({ locals, url }) => {
 
         await getUrls(posts.items, locals.pb);
         postsArray = splitArray(posts?.items, options?.rows);
-
+        
         options.loading = false;
 
     } catch (e) {
@@ -54,7 +61,7 @@ export const load = (async ({ locals, url }) => {
     }
 
     return {
-        profile: user,
+        post: post,
         posts: postsArray,
         options: options
     }

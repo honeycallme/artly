@@ -2,12 +2,26 @@
    import { enhance } from "$app/forms";
    import { Modal } from "flowbite-svelte";
    import Icon from "@iconify/svelte";
+   import { page } from '$app/stores';
 
    export let user: any;
    export let providers: any;
 
    let loading: boolean = false;
    let loginModal = false;
+
+   let paths : string[];
+
+   $: {
+      paths = $page.url.pathname.split("/").filter(part => !!part);
+      if (paths[0] == "post")
+         paths = paths.slice(0, 1);
+   }
+
+   function capitalizeFirstLetter(word : string) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
 </script>
 
 <div class="fixed z-50 w-full p-4 rounded-2xl">
@@ -81,6 +95,22 @@
             </div>
          </div>
       {/if}
+   </div>
+</div>
+
+<div class="fixed z-50 w-full p-4 transform -translate-x-1/2 rounded-2xl bottom-1 left-1/2 center">
+   <div class="flex flex-col justify-center px-4 outline-none glass rounded-2xl lg:flex-row">
+      <div class="text-sm breadcrumbs">
+         <ul>
+           <li>
+               <Icon icon="fa-solid:home" />
+               <a href="/" class="ml-2">Home</a>
+            </li> 
+            {#each paths as path, index}
+               <li><a href="/{path}">{ capitalizeFirstLetter(path) }</a></li> 
+            {/each}
+         </ul>
+       </div>
    </div>
 </div>
 

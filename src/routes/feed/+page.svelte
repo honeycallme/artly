@@ -2,11 +2,7 @@
    import Gallery from "$lib/components/sections/gallery.svelte";
 
    export let data;
-   let loading = true;
-
-   setTimeout(() => {
-      loading = data.options.loading;
-   }, 1000);
+   let loading = data.options.loading;
 
 </script>
 

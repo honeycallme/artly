@@ -33,7 +33,7 @@
    </div>
 
    {#key data.url}
-      <div class="row-span-9" transition:blur={{ duration: 800, amount: 10 }}>
+      <div class="row-span-9" transition:blur={{ duration: 500, amount: 10 }}>
          <slot />
       </div>
    {/key}

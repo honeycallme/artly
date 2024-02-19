@@ -9,9 +9,13 @@ export function splitArray(array, chunkSize) {
     return result;
 }
 
+export function getUrl(element, pb) {
+    element.content = pb.files.getUrl(element, element.content);
+}
+
 export function getUrls(array, pb) {
     array.forEach(element => {
-        element.content = pb.files.getUrl(element, element.content);
+        getUrl(element, pb);
     });
 }
 

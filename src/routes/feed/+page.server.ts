@@ -23,6 +23,7 @@ export const load = (async ({ locals }) => {
 
     try {
         posts = await locals.pb.collection(options?.collection).getList(options?.page, options?.limit, options?.settings);
+        options.page++;
 
         await getUrls(posts.items, locals.pb);
         const postsArray = splitArray(posts?.items, options?.rows);

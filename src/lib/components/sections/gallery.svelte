@@ -8,8 +8,12 @@
 
    const options = data.options;
 
-   async function infiniteHandler({ detail: { loaded } }) {
-      if (data.posts.length < options?.limit && options?.page > 1) return;
+   async function infiniteHandler({ detail: { loaded, complete } }) {
+      if (data.posts.length < options?.rows && options.page > 1) {
+         loading = false;
+         complete();
+         return;
+      }
 
       await fetch(`/api/${options?.collection}`, {
          method: "POST",
@@ -22,10 +26,15 @@
          .then((res) => {
             if (options?.settings.sort !== "@random") options.page++;
 
-            loaded();
-            loading = false;
+            if (res.length >= options.rows && res[0][0]?.id != data.posts[0][0]?.id) {
+               loaded();
+               loading = false;
 
-            data.posts = [...data.posts, ...res];
+               data.posts = [...data.posts, ...res];
+            } else {
+               loading = false;
+               complete();
+            }
          });
    }
 </script>
@@ -36,14 +45,16 @@
          >no {options?.collection} to show.</span
       >
    </div>
+{:else}
+   <Gallery class="grid-cols-{options?.rows} gap-4 p-[7%] m-auto">
+      {#each data.posts as section, index}
+         <Gallery items={section} let:item data-num={index + 1}>
+            <Post data={item} />
+         </Gallery>
+      {/each}
+
+      {#if data.posts.length >= options.rows}
+         <InfiniteLoading on:infinite={infiniteHandler} distance={300} />
+      {/if}
+   </Gallery>
 {/if}
-
-<Gallery class="grid-cols-{options?.rows} gap-4 p-[7%]">
-   {#each data.posts as section, index}
-      <Gallery items={section} let:item data-num={index + 1}>
-         <Post data={item} />
-      </Gallery>
-   {/each}
-
-   <InfiniteLoading on:infinite={infiniteHandler} distance={300} />
-</Gallery>

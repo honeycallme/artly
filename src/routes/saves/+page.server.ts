@@ -27,6 +27,7 @@ export const load = (async ({ locals }) => {
 
     try {
         posts = await locals.pb.collection(options?.collection).getList(options?.page, options?.limit, options?.settings);
+        options.page++;
 
         let temp : any[] = [];
         posts.items.forEach(element => {
