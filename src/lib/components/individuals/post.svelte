@@ -29,7 +29,7 @@
          {#if clicked}
             <div class="overlay"></div>
             <div class="spinner-container">
-               <span class="loading loading-spinner loading-lg"></span>
+               <span class="w-16 text-white loading loading-dots"></span>
             </div>
          {/if}
       </div>

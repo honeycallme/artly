@@ -2,7 +2,7 @@
    import { onMount } from "svelte";
    import Navigation from "./../lib/components/special/navigation.svelte";
    import { Toaster } from "svelte-french-toast";
-   import { blur } from "svelte/transition";
+   import { slide } from "svelte/transition";
    import Lenis from "@studio-freight/lenis";
    import "../app.css";
 
@@ -33,7 +33,7 @@
    </div>
 
    {#key data.url}
-      <div class="row-span-9" transition:blur={{ duration: 500, amount: 10 }}>
+      <div class="row-span-9" transition:slide={{ duration: 800}}>
          <slot />
       </div>
    {/key}
