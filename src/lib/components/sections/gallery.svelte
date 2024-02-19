@@ -15,7 +15,11 @@
 
     function search(tags) {
         if (tags.length > 0) {
-            baseFilter = options.settings.filter ? options.settings.filter : "";
+            if (!tagSearch)
+                baseFilter = options.settings.filter
+                    ? options.settings.filter
+                    : "";
+
             options.settings.filter = tags
                 .map((tag: string) => `tags~'${tag}'`)
                 .join("&&");
