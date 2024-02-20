@@ -54,9 +54,11 @@
                   if (type == "like") {
                      formData.append("liked", post.liked);
                      post.liked = !post.liked;
+                     post.likes += post.liked ? 1 : -1;
                   } else {
                      formData.append("saved", post.saved);
                      post.saved = !post.saved;
+                     post.saves += post.saved ? 1 : -1;
                   }
 
                   return async ({ result, update }) => {
@@ -89,6 +91,12 @@
                      <Icon icon="prime:bookmark" />
                   {/if}
                </button>
+
+               <div class="text-lg">
+                  <span class="text-gray-500">({post.likes} like{post.likes > 1 ? 's' : ''},</span>
+                  <span class="text-gray-500">{post.saves} save{post.saves > 1 ? 's' : ''},</span>
+                  <span class="text-gray-500">{post.views} view{post.views > 1 ? 's' : ''})</span>
+               </div>
             </form>
          </div>
 

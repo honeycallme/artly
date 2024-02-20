@@ -11,13 +11,27 @@ export const load = (async ({ locals, url }) => {
         expand: 'creator',
     }
 
+    // first load post 
+    // then update view count
+
     try {
         post = await locals.pb.collection('posts').getOne(id, settings);
         getUrl(post, locals.pb);
         getAvatar(post.expand.creator, locals.pb);
+
+        post.views++;
     } catch (e) {
         console.log('errror : ', e);
         return error(404, 'Unknown post')
+    }
+
+    try {
+        await locals.pb.collection('posts').update(id, {
+            views: post.views
+        });
+    } catch (e) {
+        console.log('errror : ', e);
+        return error(404, 'Error while updating view count');
     }
 
     // saves + likes loading
@@ -27,15 +41,20 @@ export const load = (async ({ locals, url }) => {
 
     try {
         likes = await locals.pb.collection('likes').getList(1, 1, {
-            filter: `user.id='${locals.user.id}' && post.id='${post.id}'`,
+            filter: `post.id='${post.id}'`,
+            fields : 'user.id'
         });
 
         saves = await locals.pb.collection('saves').getList(1, 1, {
-            filter: `user.id='${locals.user.id}' && post.id='${post.id}'`,
+            filter: `post.id='${post.id}'`,
+            fields : 'user.id'
         });
 
-        post.liked = likes.items.length > 0;
-        post.saved = saves.items.length > 0;
+        post.likes = likes.totalItems;
+        post.saves = saves.totalItems;
+
+        post.liked = likes.items.filter((like: any) => like.user === locals.user.id).length > 0;
+        post.saved = saves.items.filter((save: any) => save.user === locals.user.id).length > 0; 
     } catch (e) {
         console.log('errror : ', e);
         return error(400, 'Something went wrong');
