@@ -3,9 +3,6 @@
     import type { PageData } from "./$types";
  
     export let data: PageData;
-
-    console.log(data.post);
- 
  </script>
 
 <main class="w-full h-full mt-[15dvh]">

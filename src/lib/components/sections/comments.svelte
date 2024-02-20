@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let post: any;
+    export let comments: any;
 </script>
 
 <div class="">

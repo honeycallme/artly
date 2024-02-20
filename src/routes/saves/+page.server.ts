@@ -11,6 +11,7 @@ export const load = (async ({ locals }) => {
             sort: "-created",
             expand: 'post',
             filter: `user.id = '${locals.user.id}'`,
+            fields: 'expand.post.collectionId,expand.post.id,expand.post.content'
         },
         page: 0,
         limit: 9,
@@ -29,7 +30,7 @@ export const load = (async ({ locals }) => {
         posts = await locals.pb.collection(options?.collection).getList(options?.page, options?.limit, options?.settings);
         options.page++;
 
-        let temp : any[] = [];
+        let temp: any[] = [];
         posts.items.forEach(element => {
             temp.push(element.expand?.post);
         });

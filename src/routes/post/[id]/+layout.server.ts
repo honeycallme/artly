@@ -8,7 +8,8 @@ export const load = (async ({ locals, url }) => {
     let post: any;
     const id = url.pathname.split('/').pop();
     const settings = {
-        expand: 'creator',
+        expand: 'creator,comments(post).creator',
+        fields: '*, expand.creator.id, expand.creator.collectionId, expand.creator.avatar, expand.creator.username, expand.comments(post).*, expand.comments(post).expand.creator.id, expand.comments(post).expand.creator.collectionId, expand.comments(post).expand.creator.avatar, expand.comments(post).expand.creator.username'
     }
 
     // first load post 
@@ -42,19 +43,19 @@ export const load = (async ({ locals, url }) => {
     try {
         likes = await locals.pb.collection('likes').getList(1, 1, {
             filter: `post.id='${post.id}'`,
-            fields : 'user.id'
+            fields: 'user.id'
         });
 
         saves = await locals.pb.collection('saves').getList(1, 1, {
             filter: `post.id='${post.id}'`,
-            fields : 'user.id'
+            fields: 'user.id'
         });
 
         post.likes = likes.totalItems;
         post.saves = saves.totalItems;
 
         post.liked = likes.items.filter((like: any) => like.user === locals.user.id).length > 0;
-        post.saved = saves.items.filter((save: any) => save.user === locals.user.id).length > 0; 
+        post.saved = saves.items.filter((save: any) => save.user === locals.user.id).length > 0;
     } catch (e) {
         console.log('errror : ', e);
         return error(400, 'Something went wrong');
@@ -68,6 +69,7 @@ export const load = (async ({ locals, url }) => {
         settings: {
             sort: "-created",
             filter: post.tags.map((tag: string) => `tags~'${tag}'`).join("||"),
+            fields: 'collectionId,id,content'
         },
         page: 0,
         limit: 9,
@@ -92,7 +94,7 @@ export const load = (async ({ locals, url }) => {
 
         await getUrls(posts.items, locals.pb);
         postsArray = splitArray(posts?.items, options?.rows);
-        
+
         options.loading = false;
 
     } catch (e) {

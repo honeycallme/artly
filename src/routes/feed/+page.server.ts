@@ -7,6 +7,7 @@ export const load = async ({ locals }) => {
     collection: "posts",
     settings: {
       sort: "@random",
+      fields: 'collectionId,collectionId,id,content'
     },
     page: 0,
     limit: 16,

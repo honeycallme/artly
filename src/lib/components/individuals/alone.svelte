@@ -1,11 +1,14 @@
 <script lang="ts">
    import Comments from "../sections/comments.svelte";
-   import toast from 'svelte-french-toast';
+   import toast from "svelte-french-toast";
    import { enhance } from "$app/forms";
    import Icon from "@iconify/svelte";
 
    export let post: any;
    export let user: any;
+
+   console.log(post);
+   console.log(user);
 </script>
 
 <div class="w-full center">
@@ -22,9 +25,13 @@
       <div class="flex flex-col gap-4 text-xl">
          <!-- creator -->
          <div class="">
-            made by
-            <a href="/@{user.username}">
-               <span class="text-gray-500 hover:text-error"
+            <a href="/@{user.username}" class="flex items-center gap-3">
+               <div class="avatar">
+                  <div class="w-12 rounded-full">
+                    <img src="{user.avatar}" />
+                  </div>
+               </div>
+               <span class="text-2xl text-gray-500 hover:text-error"
                   >@{user.username}</span
                >
             </a>
@@ -49,7 +56,7 @@
                class="flex gap-2"
                use:enhance={({ formData, action }) => {
                   formData.append("id", post.id);
-                  
+
                   const type = action.search.substring(2);
                   if (type == "like") {
                      formData.append("liked", post.liked);
@@ -62,15 +69,12 @@
                   }
 
                   return async ({ result, update }) => {
-
                      if (result.type == "error") {
                         toast.error(result.error.message);
 
-                        if (type == "like")
-                           post.liked = !post.liked;
-                        else
-                           post.saved = !post.saved;
-                     } 
+                        if (type == "like") post.liked = !post.liked;
+                        else post.saved = !post.saved;
+                     }
                   };
                }}
             >
@@ -93,16 +97,22 @@
                </button>
 
                <div class="text-lg">
-                  <span class="text-gray-500">({post.likes} like{post.likes > 1 ? 's' : ''},</span>
-                  <span class="text-gray-500">{post.saves} save{post.saves > 1 ? 's' : ''},</span>
-                  <span class="text-gray-500">{post.views} view{post.views > 1 ? 's' : ''})</span>
+                  <span class="text-gray-500"
+                     >({post.likes} like{post.likes > 1 ? "s" : ""},</span
+                  >
+                  <span class="text-gray-500"
+                     >{post.saves} save{post.saves > 1 ? "s" : ""},</span
+                  >
+                  <span class="text-gray-500"
+                     >{post.views} view{post.views > 1 ? "s" : ""})</span
+                  >
                </div>
             </form>
          </div>
 
          <!-- comment section -->
          <div class="mt-4">
-            <Comments {post} />
+            <Comments comments={post.comments} />
          </div>
       </div>
    </div>

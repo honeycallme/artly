@@ -85,3 +85,14 @@ async function handler() {
 // run the main loop
 
 // handler();
+
+let comments;
+
+try {
+    comments = await pb.collection('posts').getFullList({
+        sort: '-created',
+    });
+
+} catch (e) {
+    console.log(e);
+}
