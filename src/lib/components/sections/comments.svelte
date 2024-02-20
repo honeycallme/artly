@@ -1,5 +1,7 @@
 <script lang="ts">
     export let comments: any;
+
+    console.log(comments);
 </script>
 
 <div class="">
@@ -10,7 +12,14 @@
             Comments (0)
         </div>
 
-        <div class="collapse-content"> 
+        <div class="collapse-content">
+            <div>
+                {#each comments as comment}
+                    <p>
+                        {comment.comment}
+                    </p>
+                {/each} 
+            </div>
         </div>
     </div>
 

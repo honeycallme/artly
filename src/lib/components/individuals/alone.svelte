@@ -6,9 +6,6 @@
 
    export let post: any;
    export let user: any;
-
-   console.log(post);
-   console.log(user);
 </script>
 
 <div class="w-full center">

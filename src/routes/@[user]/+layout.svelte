@@ -7,7 +7,7 @@
 
 <main class="w-full h-full mt-[20dvh]">
       
-    <div class="w-full mb-8 text-center center">
+    <div class="w-full mb-[7%] text-center center">
        <div class="avatar">
           <div
              class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 w-[15vw]"

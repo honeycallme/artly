@@ -11,7 +11,7 @@
 </script>
 
 <div class="w-full h-full center">
-   <div class="w-1/2 h-1/2">
+   <div class="w-[60%] h-[60%]">
       <!-- upload form -->
 
       <form

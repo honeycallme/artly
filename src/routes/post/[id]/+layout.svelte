@@ -7,11 +7,10 @@
 
 <main class="w-full h-full mt-[15dvh]">
       
-    <div class="w-full mb-16">
+    <div class="w-full mb-24">
          <Alone post={data.post} user={data.post.expand.creator} />
     </div>
 
-    
     <div class="text-xl">
         <p class="text-center text-gray-500">more like this :</p>
 

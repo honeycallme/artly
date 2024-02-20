@@ -107,13 +107,13 @@
 <svelte:window bind:innerWidth={size} />
 
 {#if data.posts && data.posts.length < 1 && !loading}
-    <div class="screen center h-full w-full overflow-hidden">
-        <span class="text-center text-xl text-gray-600"
+    <div class="w-full h-full overflow-hidden screen center">
+        <span class="text-xl text-center text-gray-600"
             >no {options?.collection} to show.</span
         >
     </div>
 {:else}
-    <Gallery class="grid-cols-{options?.rows} m-auto gap-4 px-[7%] py-[5%]">
+    <Gallery class="grid-cols-{options?.rows} m-auto gap-4 px-[7%] py-[1%]">
         {#each data.posts as section, index}
             <Gallery items={section} let:item data-num={index + 1}>
                 <Post data={item} />

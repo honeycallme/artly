@@ -1,8 +1,8 @@
 <script lang="ts">
    import { onMount } from "svelte";
-   import Navigation from "./../lib/components/special/navigation.svelte";
+   import Sidebar from "$lib/components/special/sidebar.svelte";
    import { Toaster } from "svelte-french-toast";
-   import { slide } from "svelte/transition";
+   import { slide, fade } from "svelte/transition";
    import Lenis from "@studio-freight/lenis";
    import "../app.css";
 
@@ -19,24 +19,26 @@
       requestAnimationFrame(raf);
    });
 
+   let width = 64;
    export let data: any;
 </script>
 
 <Toaster />
-<div
-   class="grid bg-white bg-cover grid-rows-13 screen"
-   data-theme="retro"
-   class:main={!data.user}
->
-   <div class="row-span-1 mb-8">
-      <Navigation user={data.user} providers={data.providers} />
-   </div>
+
+<div class="">
+   <Sidebar bind:width={width} user={data.user} /> 
+</div>
+
+<div class="grid grid-cols-10 bg-white bg-cover screen" data-theme="retro" class:main={!data.user}>
 
    {#key data.url}
-      <div class="row-span-9" transition:slide={{ duration: 800}}>
-         <slot />
-      </div>
+   <div class="col-span-9 overflow-hidden" transition:slide={{ duration: 800}}>
+      <slot />
+   </div>
    {/key}
+
+
+
 </div>
 
 <style>

@@ -20,6 +20,15 @@ export const load = (async ({ locals, url }) => {
         getUrl(post, locals.pb);
         getAvatar(post.expand.creator, locals.pb);
 
+        post.comments = [];
+        if (post.expand['comments(post)']) {
+            post.comments = post.expand['comments(post)'];
+
+            post.comments.forEach((comment: any) => {
+                getAvatar(comment.expand.creator, locals.pb);
+            });
+        }
+
         post.views++;
     } catch (e) {
         console.log('errror : ', e);
