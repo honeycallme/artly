@@ -19,31 +19,33 @@
       requestAnimationFrame(raf);
    });
 
-   let width = 64;
+   let size = 64;
    export let data: any;
 </script>
 
 <Toaster />
 
 <div class="">
-   <Sidebar bind:width={width} user={data.user} /> 
+   <Sidebar bind:width={size} user={data.user} />
 </div>
 
-<div class="grid grid-cols-10 bg-white bg-cover screen" data-theme="retro" class:main={!data.user}>
-
+<div
+   class="grid grid-cols-10 bg-white bg-cover screen"
+   data-theme="retro"
+   class:main={!data.user}
+>
    {#key data.url}
-   <div class="col-span-9 overflow-hidden"
-      transition:slide={{ duration: 800}}
-      class:col-span-10={!data.user}
-   >
-      <slot />
-   </div>
+         <div
+            class="overflow-hidden {(size == 64 && data.user) ? 'col-span-9' : 'col-span-10'}"
+            transition:slide={{ duration: 800 }}
+         >
+            <slot />
+         </div>
    {/key}
-
 </div>
 
 <style>
    .main {
-      background-image: url('/images/home.jpg');
+      background-image: url("/images/home.jpg");
    }
 </style>
