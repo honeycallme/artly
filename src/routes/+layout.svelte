@@ -38,7 +38,10 @@
 <div class="grid grid-cols-10 bg-white bg-cover screen" data-theme="retro" class:main={!data.user}>
 
    {#key data.url}
-   <div class="col-span-{colspan} overflow-hidden" transition:slide={{ duration: 800}}>
+   <div class="col-span-9 overflow-hidden"
+      transition:slide={{ duration: 800}}
+      class:col-span-10={!data.user}
+   >
       <slot />
    </div>
    {/key}

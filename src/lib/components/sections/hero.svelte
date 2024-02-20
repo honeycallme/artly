@@ -25,6 +25,6 @@
     }
 
     .custom {
-      left: calc(50% - 6rem);
+      left: 50%;
    }
 </style>
