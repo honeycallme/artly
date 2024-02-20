@@ -126,7 +126,7 @@
    class:custom={user}
 >
    <div
-      class="flex flex-col justify-center px-4 outline-none glass rounded-2xl lg:flex-row"
+      class="flex flex-col justify-center px-4 outline-none bg-gray-50 rounded-2xl lg:flex-row"
    >
       <div class="text-sm breadcrumbs">
          <ul>

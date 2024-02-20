@@ -3,21 +3,22 @@
    import Sidebar from "$lib/components/special/sidebar.svelte";
    import { Toaster } from "svelte-french-toast";
    import { slide, fade } from "svelte/transition";
-   import Lenis from "@studio-freight/lenis";
+   import { initScroll, lenis } from "$lib/stores/lenis";
    import "../app.css";
 
    // smooth scrolling
 
    onMount(() => {
-      const lenis = new Lenis({ duration: 6 });
-
-      function raf(time) {
-         lenis.raf(time);
-         requestAnimationFrame(raf);
-      }
-
-      requestAnimationFrame(raf);
+      $lenis = initScroll();
    });
+   
+   $: {
+      console.log(data.url);
+
+      if ($lenis) {
+         $lenis.scrollTo(0, { duration: 0 });
+      }
+   }
 
    let size = 64;
    export let data: any;
