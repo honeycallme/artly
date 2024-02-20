@@ -20,6 +20,12 @@
    });
 
    let width = 64;
+   let colspan = 9;
+
+   $: {
+      if (width == 0) colspan = 10;
+   }
+   
    export let data: any;
 </script>
 
@@ -32,12 +38,10 @@
 <div class="grid grid-cols-10 bg-white bg-cover screen" data-theme="retro" class:main={!data.user}>
 
    {#key data.url}
-   <div class="col-span-9 overflow-hidden" transition:slide={{ duration: 800}}>
+   <div class="col-span-{colspan} overflow-hidden" transition:slide={{ duration: 800}}>
       <slot />
    </div>
    {/key}
-
-
 
 </div>
 

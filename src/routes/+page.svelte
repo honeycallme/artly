@@ -16,7 +16,7 @@
 
 <div class="w-full h-full">
 	<Hero {title} {description}>
-      <button class="btn btn-secondary" on:click={() => (loginModal = true)}>Sign In / Sign Up</button>
+      <button class="btn btn-secondary btn-wide" on:click={() => (loginModal = true)}>Sign In / Sign Up</button>
    </Hero>
 </div>
 

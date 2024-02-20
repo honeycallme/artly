@@ -11,7 +11,7 @@
 
 </div>
 
-<div class="fixed text-center left-1/2 special-fixed bottom-[30%]">
+<div class="fixed text-center custom special-fixed bottom-[30%]">
     <slot />
 </div>
 
@@ -23,4 +23,8 @@
     .special-fixed {
         transform: translateX(-50%);
     }
+
+    .custom {
+      left: calc(50% - 6rem);
+   }
 </style>

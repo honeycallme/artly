@@ -105,7 +105,8 @@
 {/if}
 
 <div
-   class="fixed z-50 w-full p-4 transform -translate-x-1/2 rounded-2xl bottom-1 center custom"
+   class="fixed z-50 w-full p-4 transform -translate-x-1/2 rounded-2xl bottom-1 center left-1/2"
+   class:custom={user}
 >
    <div
       class="flex flex-col justify-center px-4 outline-none glass rounded-2xl lg:flex-row"
