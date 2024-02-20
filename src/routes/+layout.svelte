@@ -20,12 +20,6 @@
    });
 
    let width = 64;
-   let colspan = 9;
-
-   $: {
-      if (width == 0) colspan = 10;
-   }
-   
    export let data: any;
 </script>
 

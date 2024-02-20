@@ -13,10 +13,11 @@
    import { tags, selected } from "$lib/stores/tags";
    import { goto } from "$app/navigation";
 
-   export let width: Number;
+   export let width : any;
    export let user: any;
 
    let size: number;
+   let active = true;
    let paths: string[];
 
    $: {
@@ -28,9 +29,11 @@
       return word.charAt(0).toUpperCase() + word.slice(1);
    }
 
-   $: if (!user) {
+   $: if (!user || !active) {
       width = 0;
    }
+
+   $: size < 768 ? (width = 'full') : (width = 64);
 
    async function logOut() {
       await fetch("/api/auth");
@@ -42,10 +45,17 @@
 
 <svelte:window bind:innerWidth={size} />
 
-{#if user}
+{#if user && active}
    <Sidebar class="fixed right-0 z-50 w-{width}" {activeUrl}>
+
+      {#if size < 768}
+         <div class="fixed right-0 z-50">
+            <button class="m-4 btn btn-circle btn-md btn-secondary" on:click={() => {active = !active}}>+</button>
+         </div>
+      {/if}
+
       <SidebarWrapper
-         class="h-[100vh] flex glass bg-transparent w-full flex-col justify-center"
+         class="h-[100vh] flex md:glass md:bg-transparent bg-white w-full flex-col justify-center p-6"
       >
          <SidebarGroup>
             <SidebarItem label="Feed" href="/feed">
@@ -104,6 +114,13 @@
    </Sidebar>
 {/if}
 
+{#if !active && user}
+   <div class="fixed right-0 z-50">
+      <button class="m-4 btn btn-circle btn-md btn-secondary" on:click={() => {active = !active}}>+</button>
+   </div>
+{/if}
+
+{#if size > 768}
 <div
    class="fixed z-50 w-full p-4 transform -translate-x-1/2 rounded-2xl bottom-1 center left-1/2"
    class:custom={user}
@@ -124,6 +141,7 @@
       </div>
    </div>
 </div>
+{/if}
 
 <style>
    .custom {

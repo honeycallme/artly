@@ -8,7 +8,7 @@
 <main class="w-full h-full mt-[15dvh]">
       
     <div class="w-full mb-24">
-         <Alone post={data.post} user={data.post.expand.creator} />
+         <Alone post={data.post} creator={data.post.expand.creator} user={data.user} />
     </div>
 
     <div class="text-xl">

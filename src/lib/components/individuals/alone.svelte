@@ -5,7 +5,8 @@
    import Icon from "@iconify/svelte";
 
    export let post: any;
-   export let user: any;
+   export let creator: any;
+   export let user : any;
 </script>
 
 <div class="w-full center">
@@ -22,14 +23,14 @@
       <div class="flex flex-col gap-4 text-xl">
          <!-- creator -->
          <div class="">
-            <a href="/@{user.username}" class="flex items-center gap-3">
+            <a href="/@{creator.username}" class="flex items-center gap-3">
                <div class="avatar">
                   <div class="w-12 rounded-full">
-                    <img src="{user.avatar}" />
+                    <img src="{creator.avatar}" />
                   </div>
                </div>
                <span class="text-2xl text-gray-500 hover:text-error"
-                  >@{user.username}</span
+                  >@{creator.username}</span
                >
             </a>
          </div>
@@ -109,7 +110,7 @@
 
          <!-- comment section -->
          <div class="mt-4">
-            <Comments comments={post.comments} />
+            <Comments {post} {user} />
          </div>
       </div>
    </div>
