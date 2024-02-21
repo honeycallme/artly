@@ -22,6 +22,20 @@ async function getPosts()
 
 // update each post
 
+function generateName(): string {
+    const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
+    
+    const wordsCount = Math.floor(Math.random() * 5) + 2; 
+    const loremWords = loremIpsum.split(' ').slice(0, wordsCount);
+    
+    for (let i = loremWords.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [loremWords[i], loremWords[j]] = [loremWords[j], loremWords[i]];
+    }
+
+    return loremWords.join(' ');
+}
+
 function generateDescription(): string {
     const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
     
@@ -39,12 +53,20 @@ function generateDescription(): string {
 
 function generateTags(): string[] {
     const tags = [
-        { value: "us", name: "United States" },
-        { value: "ca", name: "Canada" },
-        { value: "fr", name: "France" },
-        { value: "jp", name: "Japan" },
-        { value: "en", name: "England" }
-    ];
+        { value: "art", name: "Art" },
+        { value: "cute", name: "Cute" },
+        { value: "painting", name: "Painting" },
+        { value: "photography", name: "Photography" },
+        { value: "film", name: "Film" },
+        { value: "tiktok", name: "Tiktok's" },
+        { value: "manga", name: "Manga" },
+        { value: "comics", name: "Comics" },
+        { value: "alternative", name: "Alternative" },
+        { value: "aesthetic", name: "Aesthetic" },
+        { value: "rap", name: "Rap" },
+        { value: "rock", name: "Rock" },
+        { value: "lofi", name: "Lofi" }
+     ];
 
     const numTags = Math.floor(Math.random() * 3) + 1;
     const selectedTags = tags.sort(() => 0.5 - Math.random()).slice(0, numTags).map(tag => tag.value);
@@ -55,6 +77,7 @@ function generateTags(): string[] {
 
 async function updatePost(post : any) {
     const input = {
+        name : generateName(),
         description : generateDescription(),
         tags : generateTags(),
         type : "image"
@@ -85,14 +108,3 @@ async function handler() {
 // run the main loop
 
 // handler();
-
-let comments;
-
-try {
-    comments = await pb.collection('posts').getFullList({
-        sort: '-created',
-    });
-
-} catch (e) {
-    console.log(e);
-}

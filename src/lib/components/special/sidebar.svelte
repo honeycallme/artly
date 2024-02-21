@@ -7,18 +7,19 @@
       SidebarDropdownItem,
       SidebarDropdownWrapper,
    } from "flowbite-svelte";
-   import { MultiSelect } from "flowbite-svelte";
+
    import Icon from "@iconify/svelte";
    import { page } from "$app/stores";
-   import { tags, selected } from "$lib/stores/tags";
    import { goto } from "$app/navigation";
-
-   export let width : any;
+   import Search from "./search.svelte";
+   
+   export let width: any;
    export let user: any;
 
    let size: number;
    let active = true;
    let paths: string[];
+   let search: boolean = false;
 
    $: {
       paths = $page.url.pathname.split("/").filter((part) => !!part);
@@ -29,11 +30,51 @@
       return word.charAt(0).toUpperCase() + word.slice(1);
    }
 
+   let keysDown = {
+      meta: false,
+      k: false,
+      escape: false,
+   };
+
+   function handleKeypress(event: KeyboardEvent) {
+      if (size < 768 || ((paths.length > 0 && paths[0] != "feed") && paths[0][0] != "@"))
+         return;
+
+      if (event.repeat) return;
+
+      switch (event.key) {
+         case "Meta":
+            keysDown.meta = !keysDown.meta;
+            event.preventDefault();
+            break;
+
+         case "k":
+            keysDown.k = !keysDown.k;
+            event.preventDefault();
+            break;
+
+         case "Escape":
+            keysDown.escape = !keysDown.escape;
+            event.preventDefault();
+            break;
+      }
+
+      if (keysDown.meta && keysDown.k && !search) {
+         search = true;
+      }
+
+      if (search && keysDown.escape) {
+         search = false;
+         keysDown.meta = false;
+         keysDown.k = false;
+      }
+   }
+
    $: if (!user || !active) {
       width = 0;
    }
 
-   $: size < 768 ? (width = 'full') : (width = 64);
+   $: size < 768 ? (width = "full") : (width = 64);
 
    async function logOut() {
       await fetch("/api/auth");
@@ -43,14 +84,22 @@
    $: activeUrl = $page.url.pathname;
 </script>
 
-<svelte:window bind:innerWidth={size} />
+<svelte:window
+   bind:innerWidth={size}
+   on:keydown={handleKeypress}
+   on:keyup={handleKeypress}
+/>
 
 {#if user && active}
    <Sidebar class="fixed right-0 z-50 w-{width}" {activeUrl}>
-
       {#if size < 768}
          <div class="fixed right-0 z-50">
-            <button class="m-4 btn btn-circle btn-md btn-secondary" on:click={() => {active = !active}}>+</button>
+            <button
+               class="m-4 btn btn-circle btn-md btn-secondary"
+               on:click={() => {
+                  active = !active;
+               }}>+</button
+            >
          </div>
       {/if}
 
@@ -105,9 +154,26 @@
          <!-- searchbar -->
 
          {#if size > 768 && ((paths.length > 0 && paths[0] == "feed") || paths[0][0] == "@")}
-            <div class="w-full p-2 pt-8 form-control">
-               <span class="px-1 py-2">serach by tags</span>
-               <MultiSelect items={$tags} bind:value={$selected} name="tags" />
+            <div class="w-full pt-8">
+               <span class="px-1 py-2">search by tags</span>
+               <div class="flex items-center">
+                  <input
+                     type="text"
+                     class="w-full bg-transparent input input-bordered"
+                     placeholder="Search"
+                     on:click|preventDefault={() => { search = !search; }}
+                  />
+                  <div class="relative">
+                     <kbd
+                        class="absolute transform -translate-y-1/2 kbd kbd-sm top-1/2 right-10"
+                        >⌘</kbd
+                     >
+                     <kbd
+                        class="absolute transform -translate-y-1/2 kbd kbd-sm top-1/2 right-4"
+                        >K</kbd
+                     >
+                  </div>
+               </div>
             </div>
          {/if}
       </SidebarWrapper>
@@ -116,32 +182,39 @@
 
 {#if !active && user}
    <div class="fixed right-0 z-50">
-      <button class="m-4 btn btn-circle btn-md btn-secondary" on:click={() => {active = !active}}>+</button>
+      <button
+         class="m-4 btn btn-circle btn-md btn-secondary"
+         on:click={() => {
+            active = !active;
+         }}>+</button
+      >
    </div>
 {/if}
 
 {#if size > 768}
-<div
-   class="fixed z-50 w-full p-4 transform -translate-x-1/2 rounded-2xl bottom-1 center left-1/2"
-   class:custom={user}
->
    <div
-      class="flex flex-col justify-center px-4 outline-none bg-gray-50 rounded-2xl lg:flex-row"
+      class="fixed z-50 w-full p-4 transform -translate-x-1/2 rounded-2xl bottom-1 center left-1/2"
+      class:custom={user}
    >
-      <div class="text-sm breadcrumbs">
-         <ul>
-            <li>
-               <Icon icon="fa-solid:home" />
-               <a href="/" class="ml-2">Home</a>
-            </li>
-            {#each paths as path, index}
-               <li><a href="/{path}">{capitalizeFirstLetter(path)}</a></li>
-            {/each}
-         </ul>
+      <div
+         class="flex flex-col justify-center px-4 outline-none bg-gray-50 rounded-2xl lg:flex-row"
+      >
+         <div class="text-sm breadcrumbs">
+            <ul>
+               <li>
+                  <Icon icon="fa-solid:home" />
+                  <a href="/" class="ml-2">Home</a>
+               </li>
+               {#each paths as path, index}
+                  <li><a href="/{path}">{capitalizeFirstLetter(path)}</a></li>
+               {/each}
+            </ul>
+         </div>
       </div>
    </div>
-</div>
 {/if}
+
+<Search {search} />
 
 <style>
    .custom {

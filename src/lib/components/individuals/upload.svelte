@@ -47,6 +47,7 @@
          </p>
       </div>
 
-      <input id="content" name="content" type="file" class="hidden" required bind:value={file} />
+      <input id="content" name="content" type="file" accept="image/*,video/*,audio/*,.pdf" class="hidden" required bind:value={file} />
+
    </label>
 </div>

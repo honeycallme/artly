@@ -1,12 +1,13 @@
 <script lang="ts">
    import Comments from "../sections/comments.svelte";
    import toast from "svelte-french-toast";
+   import Post from "$lib/components/individuals/post.svelte";
    import { enhance } from "$app/forms";
    import Icon from "@iconify/svelte";
 
    export let post: any;
    export let creator: any;
-   export let user : any;
+   export let user: any;
 </script>
 
 <div class="w-full center">
@@ -14,7 +15,7 @@
       class="flex flex-col items-center justify-center p-8 shadow-2xl lg:flex-row rounded-3xl drop-shadow-2xl max-w-[60dvw]"
    >
       <!-- left -->
-      <img src={post.content} alt="post.id" />
+      <Post data={post} options={{ actions : false }}/>
 
       <!-- divider -->
       <span class="divider lg:divider-horizontal"></span>
@@ -26,13 +27,18 @@
             <a href="/@{creator.username}" class="flex items-center gap-3">
                <div class="avatar">
                   <div class="w-12 rounded-full">
-                    <img src="{creator.avatar}" />
+                     <img src={creator.avatar} />
                   </div>
                </div>
                <span class="text-2xl text-gray-500 hover:text-error"
                   >@{creator.username}</span
                >
             </a>
+         </div>
+
+         <!-- name -->
+         <div>
+            <p class="font-bold">{post.name}</p>
          </div>
 
          <!-- description -->

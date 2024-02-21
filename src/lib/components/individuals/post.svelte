@@ -3,9 +3,12 @@
    import { scale } from "svelte/transition";
 
    export let data: any;
+   export let options: any;
    let clicked = false;
 
    function detail() {
+      if (!options.actions) return;
+
       clicked = true;
 
       setTimeout(() => {
@@ -24,7 +27,11 @@
    <div on:click={detail} class="w-full h-full">
 
       <div class="container">
-         <img src={data.content} alt={data.id} class="image" />
+         {#if data.type == 'image'}
+            <img src={data.content} alt={data.id} class="image" />
+         {:else}
+            <span>hello</span>
+         {/if}
       
          {#if clicked}
             <div class="overlay"></div>

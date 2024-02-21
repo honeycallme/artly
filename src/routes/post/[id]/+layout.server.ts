@@ -20,6 +20,8 @@ export const load = async ({ locals, url }) => {
     getUrl(post, locals.pb);
     getAvatar(post.expand.creator, locals.pb);
 
+    // get post comments
+
     post.comments = [];
     if (post.expand["comments(post)"]) {
       post.comments = post.expand["comments(post)"];
@@ -36,6 +38,8 @@ export const load = async ({ locals, url }) => {
     console.log("errror : ", e);
     return error(404, "Unknown post");
   }
+
+  // update post view count
 
   try {
     await locals.pb.collection("posts").update(id, {
@@ -84,7 +88,7 @@ export const load = async ({ locals, url }) => {
     settings: {
       sort: "-created",
       filter: post.tags.map((tag: string) => `tags~'${tag}'`).join("||"),
-      fields: "collectionId,id,content",
+      fields: "collectionId,id,content,type",
     },
     page: 0,
     limit: 9,

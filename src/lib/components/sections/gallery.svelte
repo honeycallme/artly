@@ -2,7 +2,6 @@
     import Post from "$lib/components/individuals/post.svelte";
     import InfiniteLoading from "svelte-infinite-loading";
     import { Gallery } from "flowbite-svelte";
-    import { onMount } from "svelte";
     import { selected } from "$lib/stores/tags";
 
     export let data: any;
@@ -92,10 +91,6 @@
             });
     }
 
-    onMount(() => {
-        window.scrollTo(0, 0);
-    });
-
     $: {
         if (size < 768) {
             options.rows = 1;
@@ -116,7 +111,7 @@
     <Gallery class="grid-cols-{options?.rows} m-auto gap-4 px-[7%] py-[1%]">
         {#each data.posts as section, index}
             <Gallery items={section} let:item data-num={index + 1}>
-                <Post data={item} />
+                <Post data={item} options={{ actions : true }} />
             </Gallery>
         {/each}
 
