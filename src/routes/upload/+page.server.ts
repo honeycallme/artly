@@ -23,7 +23,7 @@ export const actions = {
             await locals.pb.collection('posts').create(input);
         } catch (e) {
             console.log(e.response.data);
-            return error(400, e.response?.message);
+            return error(400, e.response?.data?.content?.message);
         }
 
         return {

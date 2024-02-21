@@ -35,7 +35,10 @@
             <span class="font-semibold">Click to upload</span> or drag and drop
          </p>
          <p class="text-xs text-gray-500 dark:text-gray-400">
-            SVG, PNG, JPG, GIF, MP4, MP3, or PDF
+            SVG, PNG, JPG, GIF, MP4, M4A, MP3, WAV or PDF
+         </p>
+         <p class="text-xs text-gray-500 dark:text-gray-400">
+            Max file size: 8MB
          </p>
 
          <p class="m-4 text-sm">

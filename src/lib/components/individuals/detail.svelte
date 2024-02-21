@@ -48,6 +48,7 @@
 
     {#if post.type == "video"}
         <video src={post.content} class="rounded-3xl drop-shadow-2xl" controls>
+            <track kind="captions" />
         </video>
     {/if}
 </div>
