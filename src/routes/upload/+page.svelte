@@ -37,6 +37,7 @@
 
                   formElement.reset();
                   file = undefined;
+                  type = "";
                   selected = [];
                }
             };

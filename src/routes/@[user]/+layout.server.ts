@@ -24,7 +24,7 @@ export const load = (async ({ locals, url }) => {
         settings: {
             sort: "-created",
             filter: `creator.id = '${user.id}'`,
-            fields: 'collectionId,id,content,type'
+            fields: 'collectionId,id,content,type,name'
         },
         page: 0,
         limit: 9,

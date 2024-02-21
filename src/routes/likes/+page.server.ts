@@ -11,7 +11,7 @@ export const load = (async ({ locals }) => {
             sort: "-created",
             expand: 'post',
             filter: `user.id = '${locals.user.id}'`,
-            fields: 'expand.post.collectionId,expand.post.id,expand.post.content,expand.post.type'
+            fields: 'expand.post.collectionId,expand.post.id,expand.post.content,expand.post.type,expand.post.name'
         },
         page: 0,
         limit: 9,

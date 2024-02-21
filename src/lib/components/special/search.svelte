@@ -8,7 +8,7 @@
 {#if search}
    <div class="overlay">
       <div class="relative flex items-center justify-start w-full search">
-         <kbd class="absolute ml-4 kbd" style="z-index: 9999;">Esc</kbd>
+         <kbd class="absolute ml-4 text-white kbd kbd-md bg-neutral" style="z-index: 9999;">Esc</kbd>
          <div class="w-1/3 form-control">
             <MultiSelect
                items={$tags}

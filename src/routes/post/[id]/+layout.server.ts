@@ -88,7 +88,7 @@ export const load = async ({ locals, url }) => {
     settings: {
       sort: "-created",
       filter: post.tags.map((tag: string) => `tags~'${tag}'`).join("||"),
-      fields: "collectionId,id,content,type",
+      fields: "collectionId,id,content,type,name",
     },
     page: 0,
     limit: 9,

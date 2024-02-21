@@ -5,9 +5,11 @@
     export let data: PageData;
  </script>
 
-<main class="w-full h-full mt-[15dvh]">
+<main class="w-full h-full mt-[10dvh]">
       
-    <div class="w-full mb-24">
+    <div class="w-full mb-20"
+        class:mt-[10%]={data.post.type == "audio"}
+    >
          <Alone post={data.post} creator={data.post.expand.creator} user={data.user} />
     </div>
 

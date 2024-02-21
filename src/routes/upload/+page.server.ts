@@ -22,7 +22,7 @@ export const actions = {
         try {
             await locals.pb.collection('posts').create(input);
         } catch (e) {
-            console.log(e);
+            console.log(e.response.data);
             return error(400, e.response?.message);
         }
 

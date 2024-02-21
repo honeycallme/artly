@@ -1,6 +1,7 @@
 <script lang="ts">
    import { goto } from "$app/navigation";
    import { scale } from "svelte/transition";
+   import Icon from "@iconify/svelte";
 
    export let data: any;
    export let options: any;
@@ -14,7 +15,12 @@
       setTimeout(() => {
          goto(`/post/${data.id}`);
       }, 50);
+   }
 
+   let icons : any = {
+      "audio": "bi:music-player-fill",
+      "video" : "ph:video-fill",
+      "pdf": "bxs:book",
    }
 </script>
 
@@ -25,14 +31,26 @@
    <!-- svelte-ignore a11y-no-static-element-interactions -->
    <!-- svelte-ignore a11y-click-events-have-key-events -->
    <div on:click={detail} class="w-full h-full">
-
-      <div class="container">
-         {#if data.type == 'image'}
+      <div class="container relative">
+         {#if data.type == "image"}
             <img src={data.content} alt={data.id} class="image" />
          {:else}
-            <span>hello</span>
+            <img
+               src="/images/placeholders/{data.type}.jpeg"
+               alt={data.id}
+               class="image"
+            />
+
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 center">
+               <span class="font-bold text-center text-9xl">
+                  <Icon icon="{icons[data.type]}" />
+               </span>
+               <span class="text-4xl italic font-bold text-center">
+                  {data.name}
+               </span>
+            </div>
          {/if}
-      
+
          {#if clicked}
             <div class="overlay"></div>
             <div class="spinner-container">
@@ -50,7 +68,7 @@
       overflow: hidden;
       cursor: pointer;
    }
-   
+
    .image {
       object-fit: cover;
       width: 100%;
@@ -68,11 +86,10 @@
       border-radius: 10%;
    }
 
-.spinner-container {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}
-
+   .spinner-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
 </style>

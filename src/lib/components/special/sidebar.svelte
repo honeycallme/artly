@@ -165,11 +165,11 @@
                   />
                   <div class="relative">
                      <kbd
-                        class="absolute transform -translate-y-1/2 kbd kbd-sm top-1/2 right-10"
+                        class="absolute text-white transform -translate-y-1/2 kbd kbd-sm top-1/2 right-10 bg-neutral"
                         >⌘</kbd
                      >
                      <kbd
-                        class="absolute transform -translate-y-1/2 kbd kbd-sm top-1/2 right-4"
+                        class="absolute text-white transform -translate-y-1/2 kbd kbd-sm top-1/2 right-4 bg-neutral"
                         >K</kbd
                      >
                   </div>

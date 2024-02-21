@@ -102,7 +102,7 @@
 <svelte:window bind:innerWidth={size} />
 
 {#if data.posts && data.posts.length < 1 && !loading}
-    <div class="w-full h-full overflow-hidden screen center">
+    <div class="w-full h-full my-4 overflow-hidden center">
         <span class="text-xl text-center text-gray-600"
             >no {options?.collection} to show.</span
         >
