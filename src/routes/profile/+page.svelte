@@ -38,7 +38,7 @@
 
          }
       }}
-      class="w-1/4 center"
+      class="lg:w-1/4 center"
    >
 
       <!-- avatar section -->

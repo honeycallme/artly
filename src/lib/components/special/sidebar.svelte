@@ -12,6 +12,7 @@
    import { page } from "$app/stores";
    import { goto } from "$app/navigation";
    import Search from "./search.svelte";
+   import { onMount } from "svelte";
    
    export let width: any;
    export let user: any;
@@ -26,15 +27,25 @@
       if (paths[0] == "post") paths = paths.slice(0, 1);
    }
 
+   // helper functions
+
    function capitalizeFirstLetter(word: string) {
       return word.charAt(0).toUpperCase() + word.slice(1);
    }
+
+   async function logOut() {
+      await fetch("/api/auth");
+      goto("/");
+   }
+
+   // code to handler keypresses for search bar
 
    let keysDown = {
       meta: false,
       k: false,
       escape: false,
    };
+
 
    function handleKeypress(event: KeyboardEvent) {
       if (size < 768 || ((paths.length > 0 && paths[0] != "feed") && paths[0][0] != "@"))
@@ -44,6 +55,7 @@
 
       switch (event.key) {
          case "Meta":
+         case "Control":   
             keysDown.meta = !keysDown.meta;
             event.preventDefault();
             break;
@@ -70,18 +82,21 @@
       }
    }
 
+   // code to handle side bar toggling
+   
    $: if (!user || !active) {
-      width = 0;
+      width = "full";
    }
 
    $: size < 768 ? (width = "full") : (width = 64);
-
-   async function logOut() {
-      await fetch("/api/auth");
-      goto("/");
-   }
-
    $: activeUrl = $page.url.pathname;
+
+   onMount(() => {
+      if (size < 768)
+         active = false;
+   });
+
+   $: console.log(width);
 </script>
 
 <svelte:window
@@ -113,6 +128,12 @@
                </svelte:fragment>
             </SidebarItem>
 
+            <SidebarItem label="Categories" href="/categories/image">
+               <svelte:fragment slot="icon">
+                  <Icon icon="carbon:categories" class="text-lg" />
+               </svelte:fragment>
+            </SidebarItem>
+
             <SidebarItem label="Upload" href="/upload">
                <svelte:fragment slot="icon">
                   <Icon icon="material-symbols:upload" class="text-xl" />
@@ -132,7 +153,7 @@
             </SidebarItem>
 
             <SidebarDropdownWrapper
-               label={capitalizeFirstLetter(user.username)}
+               label="@{user.username}"
             >
                <svelte:fragment slot="icon">
                   <div class="flex-1 -mr-[68%] avatar">

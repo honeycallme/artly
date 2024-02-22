@@ -31,25 +31,27 @@
    export let creator : any;
 </script>
 
-<div class="w-[70%] h-full min-w-[50dvh] center">
+<div class="w-[70%] h-full lg:min-w-[50dvh] min-w-[60dvw] center">
    {#if post.type == "image"}
       <img src={post.content} alt="post.id" class="rounded drop-shadow-2xl" />
    {/if}
 
    {#if post.type == "pdf"}
-        <iframe src="{post.content}" frameborder="0" title="{post.name}" class="w-[35dvw] h-[80dvh] rounded-3xl drop-shadow-2xl"></iframe>
+        <iframe src="{post.content}" frameborder="0" title="{post.name}" class="lg:w-[35dvw] lg:h-[80dvh] h-[50dvh] rounded-3xl drop-shadow-2xl"></iframe>
    {/if}
 
     {#if post.type == "audio"}
         <div class="center w-[60dvw] h-[50dvh]">
-            <div bind:this={player} class="bigger"></div>
+            <div bind:this={player} class="lg:bigger smaller"></div>
         </div>
     {/if}
 
     {#if post.type == "video"}
+    <div class="min-w-[80dvw] lg:min-w-[60dvh]">
         <video src={post.content} class="rounded-3xl drop-shadow-2xl" controls>
             <track kind="captions" />
         </video>
+    </div>
     {/if}
 </div>
 
@@ -60,5 +62,9 @@
 
    .bigger {
         scale: 7;
+   }
+
+   .smaller {
+        scale : 4;
    }
 </style>

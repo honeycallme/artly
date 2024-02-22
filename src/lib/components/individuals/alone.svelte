@@ -12,7 +12,7 @@
 
 <div class="w-full h-full center">
    <div
-      class="flex flex-col items-center justify-center p-8 shadow-2xl lg:flex-row rounded-3xl drop-shadow-2xl max-w-[60dvw]"
+      class="flex flex-col items-center justify-center p-8 shadow-2xl lg:flex-row rounded-3xl drop-shadow-2xl lg:max-w-[60dvw] max-w-[100vw]"
    >
       <!-- left -->
       <Detail {post} {creator} />

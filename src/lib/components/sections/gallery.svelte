@@ -53,8 +53,6 @@
     $: search($selected);
 
     async function infiniteHandler({ detail: { loaded, complete } }) {
-        console.log("called with options ", options);
-
         if (data.posts.length < options?.rows && options.page > 1) {
             loading = false;
             complete();

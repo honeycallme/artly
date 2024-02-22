@@ -13,7 +13,7 @@
 
 <div class="w-full h-full main">
    <Hero {title} {description}>
-      <button class="btn btn-error btn-wide" on:click={goHome}>Go Home</button>
+      <button class="btn btn-error btn-wide mr-[10dvw]" on:click={goHome}>Go Home</button>
    </Hero>
 </div>
 

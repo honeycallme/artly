@@ -10,7 +10,7 @@
     <div class="w-full mb-[7%] text-center center">
        <div class="avatar">
           <div
-             class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 w-[15vw]"
+             class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 lg:w-[15dvw] w-[50dvw]"
           >
              <img src={data.profile.avatar} alt="{data.profile.username}" class="drop-shadow-2xl" />
           </div>

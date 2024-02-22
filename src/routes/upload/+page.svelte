@@ -45,9 +45,6 @@
                return;
             }
 
-            console.log(file);
-            console.log(type);
-
             let error = false;
             const videoMimeRegex = /^video\//;
             const imageMimeRegex = /^image\//;
